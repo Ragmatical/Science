@@ -9,7 +9,7 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs')
 var app = express()
-    , dbUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1/db/knowledge'
+    , dbUri = process.env.MONGODB_URI || 'mongodb+srv://<joosting>:<pronetosheep>@<joostin@geekformers.com>?retryWrites=true'
     , server = http.createServer(app)
     , port = process.env.PORT ? parseInt(proces.env.PORT) : 8080;
 ;
