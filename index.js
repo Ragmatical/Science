@@ -9,8 +9,9 @@ var fs = require('fs')
 var app = express()
     , dbUri = process.env. MONGODB_URI || 'mongodb://127.0.0.1/knowledge'
     , server = http.createServer(app)
-    , port = process.env.PORT ? parseInt(proces.env.PORT) : 8081;
+    , port = process.env.PORT ? parseInt(proces.env.PORT) : 8082;
 ;
+console.log(dbUri)
 
 function startServer() {
   app.use(bodyParser.json({
@@ -26,9 +27,14 @@ function startServer() {
         , label: req.query.label
 
     });
-    label.save()
-
-    res.redirect(req.query.url)
+    if(!req.query.label || req.query.label === 'null'){
+      res.redirect(req.query.url)
+    }else{
+      console.log('saving')
+      console.log(req.query.url, req.query.label)
+      label.save()
+      res.redirect(req.query.url)
+    }
   });
 
 
@@ -47,10 +53,10 @@ function startServer() {
   /* Tells the server to start listening to requests from defined port */
   server.listen(port);
 }
-startServer()
 
 mongoose.connect(dbUri, function(err){
     if (err){
         return console.log(err)
     }
+    startServer()
 })
