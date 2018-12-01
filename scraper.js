@@ -15,7 +15,7 @@ var app = express()
 ;
 
 
-
+console.log(dbUri);
 mongoose.connect(dbUri, function(err){
 	if (err){
 		return console.log(err)
