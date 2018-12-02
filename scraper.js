@@ -56,7 +56,7 @@ async function openBrowser(err, labels){
         var url = label.url
         console.log(url)
         label.image = await scrapeImage(browser, page, url);
-        label.text = scrapeText(browser,page,url)
+        label.text = await scrapeText(browser,page,url)
         label.save();
         console.log("Scraped "+ ++i +" site(s)")
     }
