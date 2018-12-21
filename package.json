@@ -18,8 +18,10 @@
   "homepage": "https://github.com/Ragmatical/Scraper#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "get-pixels": "^3.3.2",
     "jssoup": "0.0.10",
     "mongoose": "5.0.12",
-    "numpy": "0.0.1"
+    "numpy": "0.0.1",
+    "puppeteer": "^1.11.0"
   }
 }
