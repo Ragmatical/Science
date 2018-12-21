@@ -55,28 +55,49 @@ async function openBrowser(err, labels){
         var label = labels[i]
         var url = label.url
         console.log(url)
+        try {
+            await page.goto(url)
+        } catch(ex) {
+            console.log('EXCEPTION', ex);
+        }
         label.image = await scrapeImage(browser, page, url);
+        console.log("Saved Image")
         label.text = await scrapeText(browser,page,url)
-        label.save();
+        console.log("Saved Text", label.text)
+        label.save(function(err, res) {
+            if(err) {
+                console.log("ERROR", err);
+            } else {
+                console.log("SUCCESS", res._id);
+            }
+        });
         console.log("Scraped "+ ++i +" site(s)")
     }
-  await browser.close()
+    await browser.close()
 }
 
 async function scrapeText(browser,page, url) {
-  await page.goto(url)
-  const result = await page.evaluate(() => {
-    return document.querySelector('html').innerHTML
-  })
-  return result;
+  try{
+      const result = await page.evaluate(() => {
+          return document.querySelector('html').innerHTML
+      })
+      return result;
+  } catch(ex){
+      console.log("EXCEPTION", ex);
+      return ex + '';
+  }    
 }
 
 async function scrapeImage(browser, page, url) {
-    await page.goto(url);
+  try{
     const buffer = await page.screenshot({
         fullPage: true
     });
     return buffer;
+  } catch(ex) {
+      console.log("EXCEPTION", ex);
+      return '';
+  }    
 }
 
 startBrowser()
