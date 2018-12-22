@@ -19,20 +19,18 @@ mongoose.connect(dbUri, function(err) {
   if (err) {
     return console.log(err)
   }
-  labelModel.findOne({
+  labelModel.find({
     image:{'$ne':null}
   }, function(err, labels) {
+        if(err) {
+     return console.log(err)
+  }
     gotPixels(labels, err)
   })
 })
 
 function gotPixels(labels, err){
-  if(err) {
-     return console.log(err)
-  }
-  labels = [labels];
-  for (var i = 0; i < labels.length; i++) {
-    var label = labels[i];
+    var label = lables.shift()
     var url = label.url;
     var image = new Buffer(label.image, "binary");
     getPixels(image, 'image/png', function(err, pixels) {
@@ -42,5 +40,5 @@ function gotPixels(labels, err){
       }
       console.log("Got pixels", pixels.shape.slice())
     })
-  }
+    getPixels(labels, err)
 }
