@@ -4,8 +4,11 @@ var model = mongoose.model('labels',new mongoose.Schema({
     , url: String
     , label: String
     , image: Buffer
-    , imgwidth: String
-    , imgheight: String
+    , averageRed: Number
+    , averageGreen: Number
+    , averageBlue: Number
+    , mostPopular: String
+    , colorCount: String
     , text: String
 }));
 
